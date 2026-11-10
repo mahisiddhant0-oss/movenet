@@ -1,0 +1,35 @@
+services:
+  postgres:
+    image: kartoza/postgis:18.6-3.7.0--v2026.11.06
+    environment:
+      POSTGRES_DB: movenet
+      POSTGRES_USER: movenet
+      POSTGRES_PASS: movenet
+      ALLOW_IP_RANGE: 0.0.0.0/0
+    ports:
+      - "5432:5432"
+    volumes:
+      - movenet_postgres_data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD", "test", "-f", "/tmp/postgres-ready"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+  redis:
+    image: redis:8.10.3-alpine
+    command: redis-server --appendonly yes
+    ports:
+      - "6379:6379"
+    volumes:
+      - movenet_redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  movenet_postgres_data:
+  movenet_redis_data:

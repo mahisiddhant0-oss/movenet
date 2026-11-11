@@ -1,8 +1,9 @@
 # MoveNet — Project Explanation
 
-> **Current status:** Stages 0 and 1 are complete and verified locally.
-> No application feature is marked implemented or tested until its execution results
-> are confirmed.
+> **Current status:** Stages 0 and 1 are complete and verified locally. Stage 2 is
+> in progress: its first two frontend batches are implemented, and the frontend
+> TypeScript check and production build have passed locally.
+> No unimplemented marketplace or authentication capability is presented as complete.
 
 ## 1. Project introduction
 
@@ -104,6 +105,34 @@ will be clearly marked as development-only.
 - The dependency health endpoint successfully reached PostgreSQL/PostGIS and Redis.
 - Docker Compose reported PostgreSQL/PostGIS and Redis as healthy.
 - A PostGIS query confirmed PostGIS 3.7.0, and Redis returned `PONG`.
+
+### Stage 2 implementation status
+
+The first two Stage 2 batches are implemented in the frontend:
+
+- Shared MoveNet design tokens, global accessibility defaults, and reusable button
+  styling.
+- A responsive public landing page with a navigation menu and footer.
+- Client-side browser routes for `/`, `/login`, and `/register`.
+- Polished UI-only login and registration screens with native field validation,
+  password visibility controls, and client-side password-match feedback.
+- A catch-all route that redirects unknown frontend paths to the landing page.
+
+The authentication screens are intentionally not connected to backend services. They
+do not send passwords, create accounts, persist credentials, issue tokens, or create
+sessions. Those responsibilities begin in Stage 3.
+
+### Stage 2 verification results
+
+- `npm run typecheck` passed in `frontend`.
+- `npm run build` passed in `frontend` and produced a production bundle.
+- No browser-level or end-to-end test result is claimed yet.
+
+### Frontend deployment note
+
+Vite serves the React application correctly during local development. Before a
+production deployment, frontend hosting must be configured with an SPA rewrite so a
+direct request to `/login` or `/register` serves the React `index.html` entry point.
 
 ## 5. System architecture
 
@@ -235,6 +264,10 @@ The planned authentication system uses Argon2id password hashing, JWT access tok
 and role-based authorization. Authentication identifies the caller; authorization
 checks whether that caller can perform an action on the specific resource.
 
+Current implementation boundary: Stage 2 includes only the visual login and
+registration flows. Their form submit handlers display an explicit preview notice and
+do not call the backend or retain submitted credentials.
+
 Security rules:
 
 - Validate external data with Zod at API boundaries.
@@ -348,7 +381,7 @@ records exist for one truck. That case needs an explicit database-level conflict
 |---|---|---|---|
 | 0 | Architecture and project planning | Completed | Not applicable; planning only |
 | 1 | Vite frontend, Express API, health endpoint, Docker services, configuration | Completed | Verified locally: TypeScript checks, API health checks, PostgreSQL/PostGIS, and Redis |
-| 2 | Design system, landing page, routing, authentication screens, dashboard shells | Planned | Not yet |
+| 2 | Design system, landing page, routing, authentication screens, dashboard shells | In progress — Batches 1 and 2 implemented; dashboard shells remain | Frontend TypeScript check and production build passed for Batches 1 and 2 |
 | 3 | Registration, login, password hashing, JWT, role and resource authorization | Planned | Not yet |
 | 4 | PostgreSQL schema/migrations and core marketplace APIs | Planned | Not yet |
 | 5 | Location model, PostGIS, geocoding, route adapter, geographic queries | Planned | Not yet |
@@ -393,8 +426,10 @@ speedups or capacity from the architecture alone.
 
 ## 17. Interview explanation
 
-These drafts describe the intended design. Update them after implementation so they
-match verified behavior.
+These drafts describe the planned architecture alongside the current verified
+foundation. The implemented frontend currently includes the public landing page,
+client-side routing, and UI-only authentication screens; secure authentication and
+marketplace workflows remain planned work.
 
 ### 30-second project pitch
 
@@ -552,9 +587,11 @@ implementation and measurement.
 ### Truthful project description while in progress
 
 **MoveNet — Logistics Marketplace (in progress)**
-Designed a modular-monolith architecture for a logistics marketplace concept focused
-on matching shipments with truck return routes. Planned React, TypeScript, Express,
-PostgreSQL/PostGIS, Redis, deterministic matching, and transactional booking flows.
+Built a responsive React and TypeScript frontend foundation with Tailwind CSS,
+client-side routes, UI-only login and registration experiences, and an Express API
+foundation backed by local PostgreSQL/PostGIS and Redis services. Designed the
+modular-monolith architecture for future deterministic matching and transactional
+booking workflows.
 
 Only use this wording if it accurately describes work personally completed. Replace
 planning language with specific shipped features and verified outcomes as they are
@@ -562,11 +599,12 @@ implemented.
 
 ### LinkedIn project description draft
 
-MoveNet is a full-stack logistics marketplace project in development. It aims to
-connect shippers and transport providers and identify loads compatible with planned
-truck routes, capacity, and availability. The planned architecture uses a React and
-TypeScript frontend, an Express REST API, and PostgreSQL with PostGIS. Implementation
-details and measured outcomes will be added as they are completed.
+MoveNet is a full-stack logistics marketplace project in development. Its current
+foundation includes a responsive React and TypeScript interface, public routing, and
+UI-only authentication screens, plus an Express API with local PostgreSQL/PostGIS and
+Redis connectivity checks. The next implementation steps are secure authentication,
+marketplace data, and route-aware matching; measured outcomes will be added only when
+they exist.
 
 ## 20. Future improvements
 

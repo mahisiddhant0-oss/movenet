@@ -21,3 +21,6 @@ pnpm-debug.log*
 
 # Operating system files
 .DS_Store
+
+# Private content planning
+/LINKEDIN_POST_STRATEGY.md

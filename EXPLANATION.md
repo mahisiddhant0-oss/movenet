@@ -1,9 +1,10 @@
 # MoveNet — Living Technical Explanation
 
 > **Implementation status:** Stage 1 is complete and verified locally. Stage 2 is
-> in progress; its first two frontend batches compile and build successfully. This
-> document separates verified implementation from future design so the project is
-> described truthfully in interviews, portfolios, and LinkedIn posts.
+> in progress; Batches 1–5 compile and build successfully, while final review and
+> user confirmation remain pending. This document separates verified implementation
+> from future design so the project is described truthfully in interviews,
+> portfolios, and LinkedIn posts.
 
 For the detailed delivery order and architecture roadmap, see
 [PLANNING.md](PLANNING.md).
@@ -52,7 +53,7 @@ The intended workflow is:
 |---|---|---|
 | Frontend | React, TypeScript, Vite | Implemented foundation and public routes |
 | Styling | Tailwind CSS | Implemented tokens, responsive layout, and reusable UI styling |
-| Navigation | React Router | Implemented routes for `/`, `/login`, and `/register` |
+| Navigation | React Router | Implemented public, authentication-preview, and dashboard-preview routes |
 | Icons | Lucide React | Implemented accessible interface icons |
 | Backend | Node.js, Express, TypeScript | Implemented API foundation and health endpoints |
 | Validation | Zod | Installed for backend request-boundary validation work |
@@ -97,8 +98,15 @@ flowchart TD
 
 ### Current request path
 
-The frontend currently has browser routes for the landing page, login preview, and
-registration preview. Login and registration forms do not contact the API yet.
+The frontend currently has browser routes for the landing page; workflow, shipper,
+agency, and about pages; login and registration previews; and role-specific dashboard
+previews for shippers, transport agencies, and administrators. Login and registration
+forms do not contact the API yet. Dashboard pages show reusable interface states but
+no live backend data.
+
+The About-page contact form is a local interaction preview only: it shows an honest
+notice that no message was sent or stored. Public workflow and solution copy describes
+planned capabilities and does not claim active matching, booking, or optimization.
 
 The existing backend exposes health endpoints. The dependency health endpoint checks
 that the API can reach PostgreSQL/PostGIS and Redis.
@@ -253,7 +261,7 @@ instead of overwriting it.
 |---|---|---|
 | 0 — Architecture and planning | Completed | Architecture and roadmap documented |
 | 1 — Project setup | Completed | Health checks, Docker services, and TypeScript checks verified locally |
-| 2 — Premium frontend foundation | In progress | Batches 1 and 2 compile and production-build locally |
+| 2 — Premium frontend foundation | In progress | Batches 1–5 compile and production-build locally; dashboard previews were verified in the browser earlier, while final Stage 2 review/user confirmation is pending |
 | 3 — Authentication and authorization | Planned | No backend authentication yet |
 | 4 — Database and core marketplace | Planned | No Prisma schema or marketplace APIs yet |
 | 5 — Geospatial foundation | Planned | Local PostGIS service is ready; geographic workflows are not built |
@@ -285,6 +293,7 @@ instead of overwriting it.
 | Initial backend start failed because `createApp` was not exported. | The server imported a named export that the app module did not provide. | The app module and server import were aligned. | API health endpoint returned a successful JSON response. |
 | Initial PostGIS Docker image did not support Apple Silicon. | The selected image lacked a `linux/arm64/v8` manifest. | Switched to a pinned ARM64-compatible Kartoza PostGIS image. | Docker service became healthy and `PostGIS_full_version()` returned PostGIS 3.7.0. |
 | Frontend initially imported `App.js` from TypeScript. | The application component was saved as JavaScript while strict TypeScript expected declarations. | Converted the component to `App.tsx` and aligned the import. | Frontend typecheck passed. |
+| Reusable form fields failed strict optional-property typing. | Optional props were passed explicitly as `undefined` under `exactOptionalPropertyTypes`. | Allowed explicit `undefined` for the relevant display-only props. | Frontend `npm run typecheck` passed. |
 
 ## 16. Performance benchmarks
 
@@ -307,9 +316,10 @@ caveat. Architectural choices must never be presented as measured performance ga
 > need for capacity along a compatible route. Its architecture is a modular monolith:
 > a React and TypeScript frontend, an Express REST API, PostgreSQL/PostGIS for durable
 > and spatial data, and Redis for later caching and rate limiting. The current build
-> has a responsive landing page, browser routes, UI-only authentication screens, and
-> verified backend dependency health checks. The first matching version will filter
-> hard constraints and then rank eligible options with an explainable score.
+> has responsive public workflow and solution pages, browser routes, UI-only
+> authentication screens, and verified backend dependency health checks. The first
+> matching version will filter hard constraints and then rank eligible options with an
+> explainable score.
 
 ### 2-minute technical explanation
 
@@ -354,8 +364,10 @@ caveat. Architectural choices must never be presented as measured performance ga
 7. **What does the current health endpoint prove?** The API responds; the dependency
    endpoint separately proves current database/cache connectivity.
 8. **Why have two health checks?** An API process can run while a dependency is down.
-9. **What is currently implemented in Stage 2?** Landing UI, responsive navigation,
-   routes, and UI-only authentication screens.
+9. **What is currently implemented in Stage 2?** Landing, workflow, solution, and
+   about pages; responsive routed navigation; UI-only authentication screens;
+   dashboard-shell previews; and reusable form, feedback, table, modal, toast, and
+   skeleton components. The marketplace itself is not live yet.
 10. **Do login and registration create accounts today?** No; they deliberately do not
     send or store credentials before Stage 3.
 11. **How will passwords be stored?** With Argon2id hashes, never plaintext.
@@ -400,8 +412,8 @@ caveat. Architectural choices must never be presented as measured performance ga
 ### Truthful resume bullets today
 
 - Built a responsive React, TypeScript, Vite, and Tailwind CSS foundation for a
-  logistics-marketplace project, including reusable UI components and client-side
-  routes.
+  logistics-marketplace project, including reusable UI components, public workflow
+  and solution pages, client-side routes, and role-specific dashboard shells.
 - Implemented UI-only sign-in and registration previews that use accessible native
   validation without falsely persisting credentials before backend authentication.
 - Created an Express and TypeScript API foundation with Dockerized PostgreSQL/PostGIS
@@ -411,9 +423,10 @@ caveat. Architectural choices must never be presented as measured performance ga
 
 > Building MoveNet, a logistics marketplace project focused on reducing empty truck
 > return journeys. The current foundation includes a responsive React and TypeScript
-> interface, frontend routes, UI-only authentication screens, and an Express API with
-> local PostgreSQL/PostGIS and Redis connectivity checks. Secure accounts, route-aware
-> matching, and booking flows are the next implementation milestones.
+> interface, public workflow and solution pages, UI-only authentication screens, and
+> an Express API with local PostgreSQL/PostGIS and Redis connectivity checks. Secure
+> accounts, route-aware matching, and booking flows are the next implementation
+> milestones.
 
 Never claim user adoption, cost savings, freight volume, optimized routes, or measured
 performance until those outcomes exist and can be supported with evidence.

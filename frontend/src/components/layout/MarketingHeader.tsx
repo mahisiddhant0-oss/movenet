@@ -1,12 +1,21 @@
 import { ArrowLeft, Menu, Route, X } from "lucide-react";
-import { Link, useLocation } from "react-router";
+import { Link, NavLink, useLocation } from "react-router";
 import { useState } from "react";
 
 const navigationItems = [
-  { href: "#how-it-works", label: "How it works" },
-  { href: "#audiences", label: "Who it helps" },
-  { href: "#get-started", label: "Our vision" }
+  { label: "How it works", to: "/how-it-works" },
+  { label: "For shippers", to: "/solutions/shippers" },
+  { label: "For agencies", to: "/solutions/agencies" },
+  { label: "About", to: "/about" }
 ] as const;
+
+const publicPaths = [
+  "/",
+  "/how-it-works",
+  "/solutions/shippers",
+  "/solutions/agencies",
+  "/about"
+];
 
 const Brand = () => {
   return (
@@ -30,14 +39,13 @@ const Brand = () => {
 export const MarketingHeader = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
+  const isPublicPage = publicPaths.includes(location.pathname);
 
   const closeMobileNavigation = () => {
     setIsMenuOpen(false);
   };
 
-  const isMarketingPage = location.pathname === "/";
-
-  if (!isMarketingPage) {
+  if (!isPublicPage) {
     return (
       <header className="border-b border-movenet-border bg-white">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
@@ -60,18 +68,22 @@ export const MarketingHeader = () => {
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
         <Brand />
 
-        <nav
-          aria-label="Primary navigation"
-          className="hidden items-center gap-1 md:flex"
-        >
+        <nav aria-label="Primary navigation" className="hidden items-center gap-1 md:flex">
           {navigationItems.map((item) => (
-            <a
-              className="rounded-lg px-3 py-2 text-sm font-medium text-movenet-muted transition hover:bg-movenet-mint hover:text-movenet-forest"
-              href={item.href}
-              key={item.href}
+            <NavLink
+              className={({ isActive }) =>
+                [
+                  "rounded-lg px-3 py-2 text-sm font-medium transition",
+                  isActive
+                    ? "bg-movenet-mint text-movenet-forest"
+                    : "text-movenet-muted hover:bg-movenet-mint hover:text-movenet-forest"
+                ].join(" ")
+              }
+              key={item.to}
+              to={item.to}
             >
               {item.label}
-            </a>
+            </NavLink>
           ))}
         </nav>
 
@@ -122,14 +134,21 @@ export const MarketingHeader = () => {
           className="mx-auto grid max-w-7xl gap-2"
         >
           {navigationItems.map((item) => (
-            <a
-              className="rounded-xl px-4 py-3 text-sm font-semibold text-movenet-forest transition hover:bg-movenet-mint"
-              href={item.href}
-              key={item.href}
+            <NavLink
+              className={({ isActive }) =>
+                [
+                  "rounded-xl px-4 py-3 text-sm font-semibold transition",
+                  isActive
+                    ? "bg-movenet-mint text-movenet-forest"
+                    : "text-movenet-forest hover:bg-movenet-mint"
+                ].join(" ")
+              }
+              key={item.to}
               onClick={closeMobileNavigation}
+              to={item.to}
             >
               {item.label}
-            </a>
+            </NavLink>
           ))}
 
           <Link

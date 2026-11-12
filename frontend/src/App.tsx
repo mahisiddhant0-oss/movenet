@@ -6,11 +6,14 @@ import {
   ShieldCheck,
   Truck
 } from "lucide-react";
-import { BrowserRouter, Navigate, Route, Routes } from "react-router";
+import { BrowserRouter, Link, Navigate, Route, Routes } from "react-router";
 
+import { DashboardPreviewPage } from "./pages/DashboardPreviewPage";
+import { MarketingFooter } from "./components/layout/MarketingFooter";
 import { MarketingHeader } from "./components/layout/MarketingHeader";
 import { Button } from "./components/ui/Button";
 import { LoginPage } from "./pages/LoginPage";
+import { MarketingPage } from "./pages/MarketingPage";
 import { RegistrationPage } from "./pages/RegistrationPage";
 
 const platformPrinciples = [
@@ -144,6 +147,13 @@ const LandingPage = () => {
                 >
                   Explore who it helps
                 </Button>
+
+                <Link
+                  className="inline-flex items-center justify-center rounded-xl px-5 py-3 text-sm font-semibold text-movenet-forest transition hover:bg-movenet-mint"
+                  to="/dashboard/shipper"
+                >
+                  Preview a workspace
+                </Link>
               </div>
 
               <div className="mt-10 grid max-w-2xl gap-4 sm:grid-cols-3">
@@ -361,15 +371,7 @@ const LandingPage = () => {
         </section>
       </main>
 
-      <footer className="border-t border-movenet-border bg-white">
-        <div className="mx-auto flex max-w-7xl flex-col gap-4 px-6 py-8 text-sm text-movenet-muted sm:flex-row sm:items-center sm:justify-between lg:px-8">
-          <a className="font-bold text-movenet-forest" href="#top">
-            MoveNet
-          </a>
-          <p>Smarter Routes. Better Loads. Fewer Empty Miles.</p>
-          <p>Product foundation in active development.</p>
-        </div>
-      </footer>
+      <MarketingFooter />
     </div>
   );
 };
@@ -379,8 +381,33 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         <Route element={<LandingPage />} path="/" />
+        <Route
+          element={<MarketingPage kind="how-it-works" />}
+          path="/how-it-works"
+        />
+        <Route
+          element={<MarketingPage kind="shippers" />}
+          path="/solutions/shippers"
+        />
+        <Route
+          element={<MarketingPage kind="agencies" />}
+          path="/solutions/agencies"
+        />
+        <Route element={<MarketingPage kind="about" />} path="/about" />
         <Route element={<LoginPage />} path="/login" />
         <Route element={<RegistrationPage />} path="/register" />
+        <Route
+          element={<DashboardPreviewPage role="shipper" />}
+          path="/dashboard/shipper"
+        />
+        <Route
+          element={<DashboardPreviewPage role="agency" />}
+          path="/dashboard/agency"
+        />
+        <Route
+          element={<DashboardPreviewPage role="admin" />}
+          path="/dashboard/admin"
+        />
         <Route element={<Navigate replace to="/" />} path="*" />
       </Routes>
     </BrowserRouter>

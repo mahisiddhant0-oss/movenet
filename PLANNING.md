@@ -1,8 +1,9 @@
 # MoveNet — Project Explanation
 
 > **Current status:** Stages 0 and 1 are complete and verified locally. Stage 2 is
-> in progress: its first two frontend batches are implemented, and the frontend
-> TypeScript check and production build have passed locally.
+> in progress: Batches 1–5 are implemented, with final review and user confirmation
+> still pending. The frontend TypeScript check and production build have passed
+> locally.
 > No unimplemented marketplace or authentication capability is presented as complete.
 
 ## 1. Project introduction
@@ -108,31 +109,53 @@ will be clearly marked as development-only.
 
 ### Stage 2 implementation status
 
-The first two Stage 2 batches are implemented in the frontend:
+The first five Stage 2 batches are implemented in the frontend:
 
 - Shared MoveNet design tokens, global accessibility defaults, and reusable button
   styling.
 - A responsive public landing page with a navigation menu and footer.
-- Client-side browser routes for `/`, `/login`, and `/register`.
+- Client-side browser routes for `/`, `/how-it-works`, `/solutions/shippers`,
+  `/solutions/agencies`, `/about`, `/login`, and `/register`.
+- Shared routed marketing navigation and footer across public pages.
+- Truthful public pages explaining the planned workflow and shipper/agency product
+  direction without presenting unbuilt marketplace behavior as live.
+- Reusable `FormField`, `StatusBadge`, generic `DataTable`, `Modal`, `Toast`, and
+  loading-skeleton components, alongside reusable loading, empty, and error states.
 - Polished UI-only login and registration screens with native field validation,
   password visibility controls, and client-side password-match feedback.
 - A catch-all route that redirects unknown frontend paths to the landing page.
+- Responsive dashboard-shell previews for shippers, transport agencies, and
+  administrators at their own frontend routes.
+- Reusable loading, empty, and error components, with a local state switcher to
+  verify the interface states without inventing marketplace data.
 
 The authentication screens are intentionally not connected to backend services. They
 do not send passwords, create accounts, persist credentials, issue tokens, or create
 sessions. Those responsibilities begin in Stage 3.
 
+The dashboard routes are also interface previews only. They are not protected yet and
+do not display shipment, fleet, match, revenue, booking, or admin records. Real
+dashboard data begins after the Stage 4 marketplace APIs exist.
+
+The About-page contact experience is deliberately local-only: submitting it displays
+an honest notice that no message was sent or stored. No business email or form service
+has been integrated yet.
+
 ### Stage 2 verification results
 
-- `npm run typecheck` passed in `frontend`.
-- `npm run build` passed in `frontend` and produced a production bundle.
-- No browser-level or end-to-end test result is claimed yet.
+- `npm run typecheck` passed in `frontend` after Batches 1–5.
+- `npm run build` passed in `frontend` after Batches 1–5 and produced a production
+  bundle.
+- Browser verification confirmed shipper and agency dashboard preview routes plus the
+  loading, empty, and error state selector.
+- No end-to-end test against a live marketplace API is claimed yet.
 
 ### Frontend deployment note
 
 Vite serves the React application correctly during local development. Before a
 production deployment, frontend hosting must be configured with an SPA rewrite so a
-direct request to `/login` or `/register` serves the React `index.html` entry point.
+direct request to any public, authentication, or dashboard route serves the React
+`index.html` entry point.
 
 ## 5. System architecture
 
@@ -381,7 +404,7 @@ records exist for one truck. That case needs an explicit database-level conflict
 |---|---|---|---|
 | 0 | Architecture and project planning | Completed | Not applicable; planning only |
 | 1 | Vite frontend, Express API, health endpoint, Docker services, configuration | Completed | Verified locally: TypeScript checks, API health checks, PostgreSQL/PostGIS, and Redis |
-| 2 | Design system, landing page, routing, authentication screens, dashboard shells | In progress — Batches 1 and 2 implemented; dashboard shells remain | Frontend TypeScript check and production build passed for Batches 1 and 2 |
+| 2 | Design system, public pages, routing, authentication screens, dashboard shells, reusable UI | In progress — Batches 1–5 implemented; final review/user confirmation pending and dashboards remain UI previews | Frontend TypeScript check and production build passed for Batches 1–5; dashboard browser-preview verification passed earlier for Batches 1–3 |
 | 3 | Registration, login, password hashing, JWT, role and resource authorization | Planned | Not yet |
 | 4 | PostgreSQL schema/migrations and core marketplace APIs | Planned | Not yet |
 | 5 | Location model, PostGIS, geocoding, route adapter, geographic queries | Planned | Not yet |
@@ -588,10 +611,10 @@ implementation and measurement.
 
 **MoveNet — Logistics Marketplace (in progress)**
 Built a responsive React and TypeScript frontend foundation with Tailwind CSS,
-client-side routes, UI-only login and registration experiences, and an Express API
-foundation backed by local PostgreSQL/PostGIS and Redis services. Designed the
-modular-monolith architecture for future deterministic matching and transactional
-booking workflows.
+client-side public workflow and solution pages, reusable interface components,
+UI-only login and registration experiences, and an Express API foundation backed by
+local PostgreSQL/PostGIS and Redis services. Designed the modular-monolith
+architecture for future deterministic matching and transactional booking workflows.
 
 Only use this wording if it accurately describes work personally completed. Replace
 planning language with specific shipped features and verified outcomes as they are
@@ -600,11 +623,11 @@ implemented.
 ### LinkedIn project description draft
 
 MoveNet is a full-stack logistics marketplace project in development. Its current
-foundation includes a responsive React and TypeScript interface, public routing, and
-UI-only authentication screens, plus an Express API with local PostgreSQL/PostGIS and
-Redis connectivity checks. The next implementation steps are secure authentication,
-marketplace data, and route-aware matching; measured outcomes will be added only when
-they exist.
+foundation includes a responsive React and TypeScript interface, public workflow and
+solution pages, UI-only authentication screens, and an Express API with local
+PostgreSQL/PostGIS and Redis connectivity checks. The next implementation steps are
+secure authentication, marketplace data, and route-aware matching; measured outcomes
+will be added only when they exist.
 
 ## 20. Future improvements
 

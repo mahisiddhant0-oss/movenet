@@ -12,7 +12,7 @@ journeys.
 - **Stage 0 — Architecture and planning:** complete.
 - **Stage 1 — Project setup:** complete and verified locally.
 - **Stage 2 — Premium frontend foundation:** in progress.
-  - Batches 1 and 2 are implemented.
+  - Batches 1–5 are implemented; final review and user confirmation are pending.
   - Frontend TypeScript checking and the production build pass locally.
 
 MoveNet is not yet a live logistics marketplace. Authentication, database-backed
@@ -26,11 +26,19 @@ later stages.
 - Responsive React, TypeScript, Vite, and Tailwind CSS application.
 - MoveNet design tokens, global accessibility defaults, responsive landing page, and
   reusable `Button` component.
-- Responsive navigation and footer using Lucide icons.
+- Shared routed marketing navigation and footer using Lucide icons.
 - Client-side routes:
   - `/` — landing page
+  - `/how-it-works` — planned workflow and matching-decision explanation
+  - `/solutions/shippers` — shipper-focused product direction
+  - `/solutions/agencies` — transport-agency-focused product direction
+  - `/about` — project context and local-only contact preview
   - `/login` — UI-only sign-in screen
   - `/register` — UI-only registration screen
+- Responsive role-specific dashboard previews for shippers, transport agencies, and
+  administrators, built with a reusable dashboard shell.
+- Reusable `FormField`, `StatusBadge`, generic `DataTable`, `Modal`, `Toast`, loading
+  skeleton, loading, empty, and error components for future API-driven views.
 - Native form validation, password visibility controls, and clear UI messaging that
   no credentials are sent or stored yet.
 
@@ -100,8 +108,15 @@ The frontend runs at `http://localhost:5173`.
 | URL | Current purpose |
 |---|---|
 | `http://localhost:5173/` | Public MoveNet landing page |
+| `http://localhost:5173/how-it-works` | Planned workflow and matching-decision page |
+| `http://localhost:5173/solutions/shippers` | Shipper solution direction page |
+| `http://localhost:5173/solutions/agencies` | Transport agency solution direction page |
+| `http://localhost:5173/about` | Project context and local-only contact preview |
 | `http://localhost:5173/login` | UI-only sign-in preview |
 | `http://localhost:5173/register` | UI-only registration preview |
+| `http://localhost:5173/dashboard/shipper` | Shipper dashboard shell preview |
+| `http://localhost:5173/dashboard/agency` | Transport agency dashboard shell preview |
+| `http://localhost:5173/dashboard/admin` | Admin dashboard shell preview |
 | `http://localhost:4000/api/v1/health` | API health response |
 | `http://localhost:4000/api/v1/health/dependencies` | PostgreSQL/PostGIS and Redis health response |
 
@@ -141,6 +156,12 @@ authentication or marketplace workflows are implemented.
 
 - The login and registration pages are **frontend previews only**.
 - No password is sent to the backend, saved in browser storage, or logged.
+- Dashboard pages are **not protected routes** yet and intentionally show no live
+  shipment, fleet, revenue, or user data.
+- The About-page contact experience is a **local preview**: it does not send or store
+  a message.
+- Public workflow and solution pages describe planned functionality, not live
+  marketplace activity or results.
 - Argon2id password hashing, JWT access tokens, role-based authorization, and real
   account creation begin in Stage 3.
 - PostgreSQL is planned as the source of truth for future bookings; Redis will not be
@@ -159,4 +180,5 @@ authentication or marketplace workflows are implemented.
 - Local `.env` files, `node_modules`, build output, and the private LinkedIn posting
   plan are excluded from Git.
 - Deployment is not complete. A future hosted frontend must include an SPA rewrite so
-  direct visits to `/login` and `/register` resolve to the React application.
+  direct visits to every React route—including public pages, authentication previews,
+  and dashboard previews—resolve to the React application.

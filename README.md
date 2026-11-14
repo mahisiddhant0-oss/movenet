@@ -11,8 +11,8 @@ journeys.
 
 - **Stage 0 — Architecture and planning:** complete.
 - **Stage 1 — Project setup:** complete and verified locally.
-- **Stage 2 — Premium frontend foundation:** in progress.
-  - Batches 1–5 are implemented; final review and user confirmation are pending.
+- **Stage 2 — Premium frontend foundation:** complete and reviewed.
+  - Batches 1–5 are implemented.
   - Frontend TypeScript checking and the production build pass locally.
 
 MoveNet is not yet a live logistics marketplace. Authentication, database-backed

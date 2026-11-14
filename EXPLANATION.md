@@ -1,10 +1,10 @@
 # MoveNet — Living Technical Explanation
 
-> **Implementation status:** Stage 1 is complete and verified locally. Stage 2 is
-> in progress; Batches 1–5 compile and build successfully, while final review and
-> user confirmation remain pending. This document separates verified implementation
-> from future design so the project is described truthfully in interviews,
-> portfolios, and LinkedIn posts.
+> **Implementation status:** Stages 1 and 2 are complete and verified locally. Stage
+> 2 includes Batches 1–5, passed the frontend TypeScript check and production build,
+> and was visually reviewed by the project owner. This document separates verified
+> implementation from future design so the project is described truthfully in
+> interviews, portfolios, and LinkedIn posts.
 
 For the detailed delivery order and architecture roadmap, see
 [PLANNING.md](PLANNING.md).
@@ -261,7 +261,7 @@ instead of overwriting it.
 |---|---|---|
 | 0 — Architecture and planning | Completed | Architecture and roadmap documented |
 | 1 — Project setup | Completed | Health checks, Docker services, and TypeScript checks verified locally |
-| 2 — Premium frontend foundation | In progress | Batches 1–5 compile and production-build locally; dashboard previews were verified in the browser earlier, while final Stage 2 review/user confirmation is pending |
+| 2 — Premium frontend foundation | Completed | Batches 1–5 compile and production-build locally; dashboard previews were verified in the browser and the project owner approved the completed interface |
 | 3 — Authentication and authorization | Planned | No backend authentication yet |
 | 4 — Database and core marketplace | Planned | No Prisma schema or marketplace APIs yet |
 | 5 — Geospatial foundation | Planned | Local PostGIS service is ready; geographic workflows are not built |

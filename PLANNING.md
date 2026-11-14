@@ -1,10 +1,9 @@
 # MoveNet — Project Explanation
 
-> **Current status:** Stages 0 and 1 are complete and verified locally. Stage 2 is
-> in progress: Batches 1–5 are implemented, with final review and user confirmation
-> still pending. The frontend TypeScript check and production build have passed
-> locally.
-> No unimplemented marketplace or authentication capability is presented as complete.
+> **Current status:** Stages 0, 1, and 2 are complete. Stage 2 includes Batches 1–5,
+> passed its frontend TypeScript check and production build, and was visually reviewed
+> by the project owner. No unimplemented marketplace or authentication capability is
+> presented as complete.
 
 ## 1. Project introduction
 
@@ -148,6 +147,7 @@ has been integrated yet.
   bundle.
 - Browser verification confirmed shipper and agency dashboard preview routes plus the
   loading, empty, and error state selector.
+- The project owner visually reviewed and approved the completed Stage 2 interface.
 - No end-to-end test against a live marketplace API is claimed yet.
 
 ### Frontend deployment note
@@ -404,7 +404,7 @@ records exist for one truck. That case needs an explicit database-level conflict
 |---|---|---|---|
 | 0 | Architecture and project planning | Completed | Not applicable; planning only |
 | 1 | Vite frontend, Express API, health endpoint, Docker services, configuration | Completed | Verified locally: TypeScript checks, API health checks, PostgreSQL/PostGIS, and Redis |
-| 2 | Design system, public pages, routing, authentication screens, dashboard shells, reusable UI | In progress — Batches 1–5 implemented; final review/user confirmation pending and dashboards remain UI previews | Frontend TypeScript check and production build passed for Batches 1–5; dashboard browser-preview verification passed earlier for Batches 1–3 |
+| 2 | Design system, public pages, routing, authentication screens, dashboard shells, reusable UI | Completed — Batches 1–5 implemented; dashboards remain clearly labeled UI previews | Frontend TypeScript check and production build passed for Batches 1–5; dashboard browser-preview verification and project-owner visual review completed |
 | 3 | Registration, login, password hashing, JWT, role and resource authorization | Planned | Not yet |
 | 4 | PostgreSQL schema/migrations and core marketplace APIs | Planned | Not yet |
 | 5 | Location model, PostGIS, geocoding, route adapter, geographic queries | Planned | Not yet |
